@@ -69,7 +69,8 @@
                 "type": "quantitative",
                 "scale": {
                     "domain": [0, 300],
-                    "range": [20, 500] 
+                    "range": [20, 500],
+                    "clamp": true
                 },
                 "legend": {
                     "format": "d",

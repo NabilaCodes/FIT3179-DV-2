@@ -50,9 +50,9 @@
       "title": "Year / Quarter",
 
       "axis": {
-        "labelAngle": -45,  // Rotate labels to -45 degrees for better fit
-        "labelOverlap": "skip", // Skip labels if they overlap
-        "grid": false // Optional: remove vertical grid lines for cleaner look
+        "labelAngle": -45,  
+        "labelOverlap": "skip", 
+        "grid": false 
       }
     },
     "y": {

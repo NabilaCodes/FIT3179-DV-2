@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Short-term Visitor Arrivals by Australian State",
+  "title": "2.3 Short-term visitor arrivals, state or territory of stay - July 2025",
   "width": 800,
   "height": 400,
   "projection": {"type": "equalEarth"},

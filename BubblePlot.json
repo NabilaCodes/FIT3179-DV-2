@@ -48,6 +48,12 @@
       "field": "Quarter",
       "type": "ordinal",
       "title": "Year / Quarter"
+
+      "axis": {
+        "labelAngle": -45,  // Rotate labels to -45 degrees for better fit
+        "labelOverlap": "skip", // Skip labels if they overlap
+        "grid": false // Optional: remove vertical grid lines for cleaner look
+      }
     },
     "y": {
       "field": "State",
@@ -67,7 +73,7 @@
           "scale": {
             "type": "threshold",
             "domain": [10000, 100000, 500000, 1000000, 2000000],
-            "range": [10, 60, 120, 200, 300, 400]
+            "range": [10, 30, 60, 90, 120, 150]
           },
           "legend": {"format": ","}
         },

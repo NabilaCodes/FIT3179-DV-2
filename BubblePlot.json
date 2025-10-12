@@ -1,0 +1,128 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 600,
+  "title": "Number of Trips by State, Year/Quarter, and Purpose of Travel",
+  "data": {
+    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/tourism%20for%20bubble%20plot.csv"
+  },
+
+  // Slider: Filters for minimum number of trips
+
+  "params": [
+    {
+      "name": "Trips Above",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 2000000,
+        "step": 50000,
+        "name": "Minimum Number of Trips: "
+      }
+    },
+
+    // Dropdown Menu: Filters by Purpose of Travel
+    {
+      "name": "Purpose_selection",
+      "bind": {
+        "input": "select",
+        "options": [null, "Holiday", "Business", "Visiting Friends/Relatives", "Other"],
+        "labels": ["Show All", "Holiday", "Business", "VFR", "Other"],
+        "name": "Purpose of Travel: "
+      }
+    }
+  ],
+
+  "transform": [
+    {
+      "filter": "datum['Number of Trips'] > 0"
+    },
+    { "filter": "datum['Number of Trips'] > Trips_Above" },
+
+    {
+      "filter": "Purpose_selection == null || datum['Purpose of Travel'] == Purpose_selection"
+    }
+  ],
+
+  "encoding": {
+    "x": {
+      "field": "Year_Quarter",
+      "type": "ordinal",
+      "title": "Year / Quarter"
+    },
+    "y": {
+      "field": "State",
+      "type": "nominal",
+      "title": "State"
+    }
+  },
+
+  "layer": [
+    {
+      "mark": "circle",
+      "encoding": {
+        "size": {
+          "field": "Number of Trips",
+          "type": "quantitative",
+          "title": "Number of Trips",
+          "scale": {
+            "type": "threshold",
+            "domain": [10000, 100000, 500000, 1000000, 2000000],
+            "range": [10, 60, 120, 200, 300, 400]
+          },
+          "legend": {"format": ","}
+        },
+        "color": {
+          "field": "Purpose of Travel",
+          "type": "nominal",
+          "scale": {
+            "range": [
+              "#377eb8", // Blue (Holiday)
+              "#e41a1c", // Red (VFR)
+              "#4daf4a", // Green (Business)
+              "#984ea3", // Purple (Education)
+              "#ff7f00"  // Orange (Other)
+            ]
+          },
+          "title": "Purpose of Travel"
+        },
+        "opacity": {"value": 0.7},
+        "tooltip": [
+          {"field": "State", "type": "nominal"},
+          {"field": "Year_Quarter", "type": "ordinal"},
+          {"field": "Purpose_of_Travel", "type": "nominal"},
+          {"field": "Number_of_Trips", "type": "quantitative", "format": ","}
+        ]
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -10,
+        "fontSize": 11,
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "text": {"field": "State", "type": "nominal"},
+        "color": {"value": "black"},
+        "opacity": {
+          "condition": {
+            "test": "datum['State'] == 'NSW' || datum['State'] == 'VIC' || datum['State'] == 'QLD'",
+            "value": 1
+          },
+          "value": 0
+        },
+        "tooltip": [
+          {"field": "State", "type": "nominal"},
+          {"field": "Year_Quarter", "type": "ordinal"},
+          {"field": "Purpose_of_Travel", "type": "nominal"},
+          {"field": "Number_of_Trips", "type": "quantitative", "format": ","}
+        ]
+      }
+    }
+  ]
+}

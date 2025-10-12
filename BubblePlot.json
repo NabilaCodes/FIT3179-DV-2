@@ -4,7 +4,7 @@
   "height": 600,
   "title": "Number of Trips by State, Quarter, and Purpose of Travel",
   "data": {
-    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/tourism%20for%20bubble%20plot.csv"
+    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/main/tourism%20for%20bubble%20plot.csv"
   },
 
 

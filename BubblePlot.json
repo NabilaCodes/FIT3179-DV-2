@@ -47,7 +47,7 @@
     "x": {
       "field": "Quarter",
       "type": "ordinal",
-      "title": "Year / Quarter"
+      "title": "Year / Quarter",
 
       "axis": {
         "labelAngle": -45,  // Rotate labels to -45 degrees for better fit

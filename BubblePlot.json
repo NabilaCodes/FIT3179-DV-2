@@ -39,7 +39,7 @@
     { "filter": "datum['Trips'] > Trips_Above" },
 
     {
-      "filter": "Purpose_selection == null || datum['Purpose of Travel'] == Purpose_selection"
+      "filter": "Purpose_selection == null || datum['Purpose'] == Purpose_selection"
     }
   ],
 

@@ -67,9 +67,15 @@
         "size": {
                 "field": "Trips",
                 "type": "quantitative",
-                "scale": {"domain": [0, 300], "range": [10, 500]},
-                "legend": {"format": ",", "title": "Number of Trips"}
-        },
+                "scale": {
+                    "domain": [0, 300],
+                    "range": [20, 500] 
+                },
+                "legend": {
+                    "format": "d",
+                    "title": "Number of Trips"
+                }
+                }
         "color": {
           "field": "Purpose",
           "type": "nominal",

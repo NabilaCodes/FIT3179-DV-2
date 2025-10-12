@@ -1,70 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Australian Visitor Arrivals Map</title>
+  <title>Australian Visitor Arrivals & Tourism Trends</title>
   <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
-  
   <style>
-      body {
-          font-family: sans-serif;
-          text-align: center;
-      }
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 40px auto;
+      max-width: 1000px;
+    }
+    #map, #bubble {
+      margin-top: 50px;
+    }
+    .vega-bindings {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 10px auto;
+    }
   </style>
 </head>
+
 <body>
-  <h1>Short-term Visitor Arrivals by Australian State/Territory</h1>
-  <div id="vis"></div> 
-  
+  <h1>Australian Tourism Visualisations</h1>
+
+  <!-- 🗺️ Map Section -->
+  <h2>Short-term Visitor Arrivals by State/Territory (July 2025)</h2>
+  <div id="map"></div>
+
+  <!-- 🫧 Bubble Plot Section -->
+  <h2>Number of Trips by State, Quarter, and Purpose</h2>
+  <div id="bubble"></div>
+
   <script>
-    const spec = {
+    // MAP
+    const mapSpec = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
       "title": "Short-term Visitor Arrivals by Australian State/Territory - July 2025",
       "width": 800,
       "height": 600,
       "projection": {"type": "mercator", "center": [133, -27], "scale": 900},
       "data": {
-  "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/ne_10m%20(1).json",
-  "format": {
-    "type": "topojson",
-    "feature": "ne_10m_admin_1_states_provinces"
-  }
-},
-"transform": [
-  {
-    "lookup": "properties.name",
-    "from": {
-      "data": {
-        "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Dataset%20for%20map.csv"
+        "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/ne_10m%20(1).json",
+        "format": {"type": "topojson", "feature": "ne_10m_admin_1_states_provinces"}
       },
-      "key": "Region",
-      "fields": ["Number of visitor arrivals"]
-    }
-  }
-],
-"mark": {
-  "type": "geoshape",
-  "stroke": "black",
-  "strokeWidth": 0.5
-},
-"encoding": {
-  "color": {
-    "field": "Number of visitor arrivals",
-    "type": "quantitative",
-    "title": "Visitor Arrivals",
-    "scale": {"scheme": "blues"}
-  },
-  "tooltip": [
-    {"field": "properties.name", "type": "nominal", "title": "State/Territory"},
-    {"field": "Number of visitor arrivals", "type": "quantitative", "format": ","}
-  ]
-},
-
-      "config": {}
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Dataset%20for%20map.csv"
+            },
+            "key": "Region",
+            "fields": ["Number of visitor arrivals"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "black", "strokeWidth": 0.5},
+      "encoding": {
+        "color": {
+          "field": "Number of visitor arrivals",
+          "type": "quantitative",
+          "title": "Visitor Arrivals",
+          "scale": {"scheme": "blues"}
+        },
+        "tooltip": [
+          {"field": "properties.name", "title": "State/Territory"},
+          {"field": "Number of visitor arrivals", "format": ","}
+        ]
+      }
     };
-    
-    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+
+    // BUBBLE PLOT
+    const bubbleSpec = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/tourism_bubble.json";
+
+    // vegaEmbed
+    vegaEmbed("#map", mapSpec, {mode: "vega-lite"}).then(() => {
+      return vegaEmbed("#bubble", bubbleSpec, {mode: "vega-lite"});
+    }).catch(console.warn);
   </script>
 </body>
 </html>

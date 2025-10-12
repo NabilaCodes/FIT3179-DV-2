@@ -43,28 +43,27 @@
     }
   ],
 
-  "encoding": {
-    "x": {
-      "field": "Quarter",
-      "type": "ordinal",
-      "title": "Year / Quarter",
-
-      "axis": {
-        "labelAngle": -45,   
-        "grid": false 
-      }
-    },
-    "y": {
-      "field": "State",
-      "type": "nominal",
-      "title": "State"
-    }
-  },
 
   "layer": [
     {
       "mark": "circle",
       "encoding": {
+
+        "x": {
+          "field": "Quarter",
+          "type": "ordinal",
+          "title": "Year / Quarter",
+          "axis": {
+            "labelAngle": -45,  
+            "grid": false 
+          }
+        },
+        "y": {
+          "field": "State",
+          "type": "nominal",
+          "title": "State"
+        },
+        
         "size": {
           "field": "Trips",
           "type": "quantitative",

@@ -7,7 +7,6 @@
     "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/tourism%20for%20bubble%20plot.csv"
   },
 
-  // Slider: Filters for minimum number of trips
 
   "params": [
     {
@@ -22,7 +21,6 @@
       }
     },
 
-    // Dropdown Menu: Filters by Purpose of Travel
     {
       "name": "Purpose_selection",
       "bind": {
@@ -38,7 +36,7 @@
     {
       "filter": "datum['Number of Trips'] > 0"
     },
-    { "filter": "datum['Number of Trips'] > Trips_Above" },
+    { "filter": "datum['Number of Trips'] > Trips Above" },
 
     {
       "filter": "Purpose_selection == null || datum['Purpose of Travel'] == Purpose_selection"
@@ -47,7 +45,7 @@
 
   "encoding": {
     "x": {
-      "field": "Year_Quarter",
+      "field": "Quarter",
       "type": "ordinal",
       "title": "Year / Quarter"
     },
@@ -63,7 +61,7 @@
       "mark": "circle",
       "encoding": {
         "size": {
-          "field": "Number of Trips",
+          "field": "Trips",
           "type": "quantitative",
           "title": "Number of Trips",
           "scale": {
@@ -74,15 +72,15 @@
           "legend": {"format": ","}
         },
         "color": {
-          "field": "Purpose of Travel",
+          "field": "Purpose",
           "type": "nominal",
           "scale": {
             "range": [
-              "#377eb8", // Blue (Holiday)
-              "#e41a1c", // Red (VFR)
-              "#4daf4a", // Green (Business)
-              "#984ea3", // Purple (Education)
-              "#ff7f00"  // Orange (Other)
+              "#377eb8",
+              "#e41a1c", 
+              "#4daf4a", 
+              "#984ea3", 
+              "#ff7f00"  
             ]
           },
           "title": "Purpose of Travel"
@@ -90,9 +88,9 @@
         "opacity": {"value": 0.7},
         "tooltip": [
           {"field": "State", "type": "nominal"},
-          {"field": "Year_Quarter", "type": "ordinal"},
-          {"field": "Purpose_of_Travel", "type": "nominal"},
-          {"field": "Number_of_Trips", "type": "quantitative", "format": ","}
+          {"field": "Quarter", "type": "ordinal"},
+          {"field": "Purpose", "type": "nominal"},
+          {"field": "Trips", "type": "quantitative", "format": ","}
         ]
       }
     },
@@ -118,9 +116,9 @@
         },
         "tooltip": [
           {"field": "State", "type": "nominal"},
-          {"field": "Year_Quarter", "type": "ordinal"},
-          {"field": "Purpose_of_Travel", "type": "nominal"},
-          {"field": "Number_of_Trips", "type": "quantitative", "format": ","}
+          {"field": "Quarter", "type": "ordinal"},
+          {"field": "Purpose", "type": "nominal"},
+          {"field": "Trips", "type": "quantitative", "format": ","}
         ]
       }
     }

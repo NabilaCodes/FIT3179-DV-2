@@ -63,16 +63,13 @@
           "type": "nominal",
           "title": "State"
         },
-        
+
         "size": {
-          "field": "Trips",
-          "type": "quantitative",
-          "title": "Number of Trips",
-          "scale": {
-            "type": "threshold",
-            "domain": [10000, 100000, 500000, 1000000, 2000000],
-            "range": [10, 30, 60, 90, 120, 150]
-          },
+                "field": "Trips",
+                "type": "quantitative",
+                "scale": {"domain": [0, 300], "range": [10, 500]},
+                "legend": {"format": ".1f", "title": "Number of Trips"}
+                },
           "legend": {"format": ","}
         },
         "color": {

@@ -17,7 +17,7 @@
         "min": 0,
         "max": 2000000,
         "step": 50000,
-        "name": "MinimumNumber of Trips: "
+        "name": "Minimum Number of Trips: "
       }
     },
 
@@ -50,8 +50,7 @@
       "title": "Year / Quarter",
 
       "axis": {
-        "labelAngle": -45,  
-        "labelOverlap": "skip", 
+        "labelAngle": -45,   
         "grid": false 
       }
     },

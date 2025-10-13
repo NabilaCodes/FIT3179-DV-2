@@ -27,16 +27,16 @@
 <body>
   <h1>Australian Tourism Visualisations</h1>
 
-  <!-- 🗺️ Map Section -->
+
   <h2>Short-term Visitor Arrivals by State/Territory (July 2025)</h2>
   <div id="map"></div>
 
-  <!-- 🫧 Bubble Plot Section -->
+
   <h2>Number of Trips by State, Quarter, and Purpose</h2>
   <div id="bubble"></div>
 
   <script>
-    // MAP
+
     const mapSpec = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
       "title": "Short-term Visitor Arrivals by Australian State/Territory - July 2025",
@@ -74,12 +74,12 @@
       }
     };
 
-    // LINE CHARTS
-    const bubbleSpec = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/LineCharts.json";
 
-    // vegaEmbed
+    const lineChartSpec = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/LineCharts.json";
+    
+
     vegaEmbed("#map", mapSpec, {mode: "vega-lite"}).then(() => {
-      return vegaEmbed("#bubble", bubbleSpec, {mode: "vega-lite"});
+      return vegaEmbed("#linechart", lineChartSpec, {mode: "vega-lite"});
     }).catch(console.warn);
   </script>
 </body>

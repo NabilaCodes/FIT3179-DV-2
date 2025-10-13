@@ -15,29 +15,64 @@
       "domain": false
     }
   },
-  "mark": "rect",
-  "encoding": {
-    "x": {
-      "field": "year",
-      "type": "ordinal",
-      "title": "Year"
-    },
-    "y": {
-      "field": "month",
-      "type": "ordinal",
-      "title": "Month",
-      "sort": [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-      ]
-    },
-    "color": {
-      "field": "arrivals",
-      "type": "quantitative",
-      "legend": {
-        "title": "Arrivals ('000)"
+  "layer": [
+    {
+      "mark": "rect",
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": "Year"
+        },
+        "y": {
+          "field": "month",
+          "type": "ordinal",
+          "title": "Month",
+          "sort": [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+          ]
+        },
+        "color": {
+          "field": "arrivals",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "tealblues",
+            "type": "linear"
+        },
+          "legend": {
+            "title": "Arrivals ('000)"
+          }
+        }
       }
-    }
+    },
+    {
+  "data": {
+    "values": [
+      {
+        "year": "2020",
+        "month": "July",
+        "note": "↓ Decrease in Tourism during COVID"
+      }
+    ]
   },
-  "description" : "AI Declaration: In writing this code, I have taken the help of Copilot AI by providing it with the base code for line charts from the Studio examples."
+  "mark": {
+    "type": "text",
+    "align": "center",
+    "baseline": "middle",
+    "dx": 70,  
+    "dy": -5,
+    "fontSize": 13,
+    "fontStyle": "italic",
+    "color": "#444"
+  },
+  "encoding": {
+    "x": { "field": "year", "type": "ordinal" },
+    "y": { "field": "month", "type": "ordinal" },
+    "text": { "field": "note", "type": "nominal" }
+  }
+}
+
+  ],
+  "description": "AI Declaration: In writing this code, I have taken the help of Copilot AI by providing it with the base code for line charts from the Studio examples."
 }

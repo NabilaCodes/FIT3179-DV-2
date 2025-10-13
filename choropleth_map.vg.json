@@ -50,17 +50,18 @@
   },
   "encoding": {
     "color": {
-      "field": "Visitor Arrivals",
-      "type": "quantitative",
-      "scale": {
-        "scheme": "blues",
-        "type": "linear"
-      },
-      "legend": {
-        "title": "Number of Visitors",
-        "format": ","
-      }
-    },
+  "field": "Visitor Arrivals",
+  "type": "quantitative",
+  "scale": {
+    "scheme": "tealblues",
+    "type": "linear"
+  },
+  "legend": {
+    "title": "Number of Visitors",
+    "format": ","
+  }
+}
+,
     "tooltip": [
       {
         "field": "properties.name",

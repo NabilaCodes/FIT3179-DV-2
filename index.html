@@ -12,8 +12,11 @@
       margin: 40px auto;
       max-width: 1000px;
     }
-    #map, #bubble {
-      margin-top: 50px;
+    h1 {
+      margin-bottom: 40px;
+    }
+    .chart-container {
+      margin-top: 60px;
     }
     .vega-bindings {
       display: flex;
@@ -25,62 +28,22 @@
 </head>
 
 <body>
-  <h1>Australian Tourism Visualisations</h1>
+  <h1>Tourism in Australia - Dashboard </h1>
 
+  <div class="chart-container">
+    <div id="map"></div>
+  </div>
 
-  <h2>Short-term Visitor Arrivals by State/Territory (July 2025)</h2>
-  <div id="map"></div>
-
-
-  <h2>Number of Trips by State, Quarter, and Purpose</h2>
-  <div id="bubble"></div>
+  <div class="chart-container">
+    <div id="linechart"></div>
+  </div>
 
   <script>
+    const mapSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/choropleth_map.vg.json";
+    const lineChartSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/LineCharts.vg.json";
 
-    const mapSpec = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "title": "Short-term Visitor Arrivals by Australian State/Territory - July 2025",
-      "width": 800,
-      "height": 600,
-      "projection": {"type": "mercator", "center": [133, -27], "scale": 900},
-      "data": {
-        "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/ne_10m%20(1).json",
-        "format": {"type": "topojson", "feature": "ne_10m_admin_1_states_provinces"}
-      },
-      "transform": [
-        {
-          "lookup": "properties.name",
-          "from": {
-            "data": {
-              "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Dataset%20for%20map.csv"
-            },
-            "key": "Region",
-            "fields": ["Number of visitor arrivals"]
-          }
-        }
-      ],
-      "mark": {"type": "geoshape", "stroke": "black", "strokeWidth": 0.5},
-      "encoding": {
-        "color": {
-          "field": "Number of visitor arrivals",
-          "type": "quantitative",
-          "title": "Visitor Arrivals",
-          "scale": {"scheme": "blues"}
-        },
-        "tooltip": [
-          {"field": "properties.name", "title": "State/Territory"},
-          {"field": "Number of visitor arrivals", "format": ","}
-        ]
-      }
-    };
-
-
-    const lineChartSpec = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/LineCharts.json";
-    
-
-    vegaEmbed("#map", mapSpec, {mode: "vega-lite"}).then(() => {
-      return vegaEmbed("#linechart", lineChartSpec, {mode: "vega-lite"});
-    }).catch(console.warn);
+    vegaEmbed("#map", mapSpecURL, {mode: "vega-lite"}).catch(console.warn);
+    vegaEmbed("#linechart", lineChartSpecURL, {mode: "vega-lite"}).catch(console.warn);
   </script>
 </body>
 </html>

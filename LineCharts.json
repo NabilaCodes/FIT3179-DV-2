@@ -4,7 +4,7 @@
   "height": 500,
   "title": "Australian Domestic Trips Over Time by State",
   "data": {
-    "url": " "
+    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/KaggleTourismDataset.csv"
   },
   "params": [
     {

@@ -1,35 +1,85 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "2.3 Short-term visitor arrivals, state or territory of stay - July 2025",
+  "title": "Short-term Visitor Arrivals by State/Territory",
   "width": 800,
-  "height": 400,
-  "projection": {"type": "equalEarth"},
-  "data": {
-    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/ne_10m.json",
-    "format": {"type": "topojson", "feature": "ne_10m_admin_0_countries"}
-  },
-  "transform": [
+  "height": 600,
+  "params": [
     {
-      "lookup": "properties.NAME",
-      "from": {
-        "data": {
-          "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Dataset%20for%20map.csv"
-        },
-        "key": "Region",
-        "fields": ["Number of visitor arrivals"]
+      "name": "Year_selection",
+      "value": "July 2025",
+      "bind": {
+        "input": "select",
+        "options": ["July 2019", "July 2023", "July 2024", "July 2025"],
+        "labels": ["July 2019", "July 2023", "July 2024", "July 2025"],
+        "name": "Select Year: "
       }
     }
   ],
-  "mark": {"type": "geoshape"},
+  "data": {
+    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/ne_10m%20(1).json",
+    "format": {
+      "type": "topojson",
+      "feature": "ne_10m_admin_1_states_provinces"
+    }
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [133, -28],
+    "scale": 700
+  },
+  "transform": [
+    {
+      "lookup": "properties.name",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Choropleth%20dataset.csv"
+        },
+        "key": "State or territory of stay",
+        "fields": ["July 2019", "July 2023", "July 2024", "July 2025"]
+      }
+    },
+    {
+      "fold": ["July 2019", "July 2023", "July 2024", "July 2025"],
+      "as": ["Year", "Visitors"]
+    },
+    {
+      "filter": "datum.Year == Year_selection"
+    },
+    {
+      "calculate": "toNumber(replace(datum.Visitors, ',', ''))",
+      "as": "Visitor Arrivals"
+    }
+  ],
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white",
+    "strokeWidth": 1
+  },
   "encoding": {
     "color": {
-      "field": "Number of visitor arrivals",
+      "field": "Visitor Arrivals",
       "type": "quantitative",
-      "scale": {"type": "log"}
+      "scale": {
+        "scheme": "blues",
+        "type": "linear"
+      },
+      "legend": {
+        "title": "Number of Visitors",
+        "format": ","
+      }
     },
     "tooltip": [
-      {"field": "properties.NAME", "type": "nominal", "title": "Region"},
-      {"field": "Active", "type": "quantitative"}
+      {
+        "field": "properties.name",
+        "type": "nominal",
+        "title": "State/Territory"
+      },
+      {
+        "field": "Visitor Arrivals",
+        "type": "quantitative",
+        "title": "Visitors",
+        "format": ","
+      }
     ]
   }
 }

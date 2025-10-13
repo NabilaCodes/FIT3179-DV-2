@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Short-term Visitor Arrivals by State/Territory",
-  "width": 800,
-  "height": 600,
+  "width": 1000,
+  "height": 800,
   "params": [
     {
       "name": "Year_selection",

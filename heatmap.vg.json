@@ -38,5 +38,6 @@
         "title": "Arrivals ('000)"
       }
     }
-  }
+  },
+  "description" : "AI Declaration: In writing this code, I have taken the help of Copilot AI by providing it with the base code for line charts from the Studio examples."
 }

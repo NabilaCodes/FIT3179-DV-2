@@ -39,14 +39,7 @@
       }
     },
     {
-      "fold": ["July 2019", "July 2023", "July 2024", "July 2025"],
-      "as": ["Year", "Visitors"]
-    },
-    {
-      "filter": "datum.Year == Year_selection"
-    },
-    {
-      "calculate": "toNumber(replace(datum.Visitors, ',', ''))",
+      "calculate": "Year_selection == 'July 2019' ? datum['July 2019'] : Year_selection == 'July 2023' ? datum['July 2023'] : Year_selection == 'July 2024' ? datum['July 2024'] : datum['July 2025']",
       "as": "Visitor Arrivals"
     }
   ],
@@ -79,6 +72,11 @@
         "type": "quantitative",
         "title": "Visitors",
         "format": ","
+      },
+      {
+        "field": "Year_selection",
+        "type": "nominal",
+        "title": "Year"
       }
     ]
   }

@@ -21,6 +21,10 @@
   "transform": [
     {
       "filter": "datum.Purpose == Purpose_selection"
+    },
+    {
+      "aggregate": [{"op": "sum", "field": "Trips", "as": "Total_Trips"}],
+      "groupby": ["Quarter", "State", "Purpose"]
     }
   ],
   "mark": {
@@ -39,7 +43,7 @@
       }
     },
     "y": {
-      "field": "Trips",
+      "field": "Total_Trips",
       "type": "quantitative",
       "title": "Number of Trips",
       "axis": {
@@ -57,9 +61,8 @@
     "tooltip": [
       {"field": "Quarter", "type": "temporal", "format": "%Y Q%q", "title": "Quarter"},
       {"field": "State", "type": "nominal", "title": "State"},
-      {"field": "Region", "type": "nominal", "title": "Region"},
       {"field": "Purpose", "type": "nominal", "title": "Purpose"},
-      {"field": "Trips", "type": "quantitative", "format": ",.1f", "title": "Number of Trips"}
+      {"field": "Total_Trips", "type": "quantitative", "format": ",.1f", "title": "Total Trips"}
     ]
   }
 }

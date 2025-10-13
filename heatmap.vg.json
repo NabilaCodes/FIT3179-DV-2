@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/arrivals_cleaned.csv"
+  },
+  "title": "Short-Term Visitor Arrivals to Australia",
+  "config": {
+    "view": {
+      "strokeWidth": 0,
+      "step": 13
+    },
+    "axis": {
+      "domain": false
+    }
+  },
+  "mark": "rect",
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year"
+    },
+    "y": {
+      "field": "month",
+      "type": "ordinal",
+      "title": "Month"
+    },
+    "color": {
+      "field": "arrivals",
+      "type": "quantitative",
+      "legend": {
+        "title": "Arrivals ('000)"
+      }
+    }
+  }
+}

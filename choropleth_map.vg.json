@@ -72,11 +72,6 @@
         "type": "quantitative",
         "title": "Visitors",
         "format": ","
-      },
-      {
-        "field": "Year_selection",
-        "type": "nominal",
-        "title": "Year"
       }
     ]
   }

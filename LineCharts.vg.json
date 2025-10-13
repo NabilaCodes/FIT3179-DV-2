@@ -18,51 +18,95 @@
       }
     }
   ],
-  "transform": [
+  "layer": [
     {
-      "filter": "datum.Purpose == Purpose_selection"
+      "transform": [
+        {
+          "filter": "datum.Purpose == Purpose_selection"
+        },
+        {
+          "aggregate": [{"op": "sum", "field": "Trips", "as": "Total_Trips"}],
+          "groupby": ["Quarter", "State", "Purpose"]
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": true,
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "Quarter",
+          "type": "temporal",
+          "title": "Quarter",
+          "axis": {
+            "format": "%Y",
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "Total_Trips",
+          "type": "quantitative",
+          "title": "Number of Trips",
+          "axis": {
+            "format": ",.0f"
+          }
+        },
+        "color": {
+          "field": "State",
+          "type": "nominal",
+          "title": "State",
+          "scale": {
+            "scheme": "category10"
+          },
+          "legend": {
+            "orient": "bottom"
+          }
+        },
+        "tooltip": [
+          {"field": "Quarter", "type": "temporal", "format": "%Y Q%q", "title": "Quarter"},
+          {"field": "State", "type": "nominal", "title": "State"},
+          {"field": "Purpose", "type": "nominal", "title": "Purpose"},
+          {"field": "Total_Trips", "type": "quantitative", "format": ",.1f", "title": "Total Trips"}
+        ]
+      }
     },
     {
-      "aggregate": [{"op": "sum", "field": "Trips", "as": "Total_Trips"}],
-      "groupby": ["Quarter", "State", "Purpose"]
+      "transform": [
+        {
+          "filter": "datum.Purpose == Purpose_selection"
+        },
+        {
+          "aggregate": [{"op": "sum", "field": "Trips", "as": "Total_Trips"}],
+          "groupby": ["Quarter", "State", "Purpose"]
+        },
+        {
+          "window": [{"op": "rank", "as": "rank"}],
+          "sort": [{"field": "Quarter", "order": "descending"}],
+          "groupby": ["State"]
+        },
+        {
+          "filter": "datum.rank == 1"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5,
+        "fontSize": 11,
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "x": {"field": "Quarter", "type": "temporal"},
+        "y": {"field": "Total_Trips", "type": "quantitative"},
+        "text": {"field": "State", "type": "nominal"},
+        "color": {
+          "field": "State",
+          "type": "nominal",
+          "legend": null
+        }
+      }
     }
-  ],
-  "mark": {
-    "type": "line",
-    "point": true,
-    "strokeWidth": 2
-  },
-  "encoding": {
-    "x": {
-      "field": "Quarter",
-      "type": "temporal",
-      "title": "Quarter",
-      "axis": {
-        "format": "%Y",
-        "labelAngle": 0
-      }
-    },
-    "y": {
-      "field": "Total_Trips",
-      "type": "quantitative",
-      "title": "Number of Trips",
-      "axis": {
-        "format": ",.0f"
-      }
-    },
-    "color": {
-      "field": "State",
-      "type": "nominal",
-      "title": "State",
-      "scale": {
-        "scheme": "category10"
-      }
-    },
-    "tooltip": [
-      {"field": "Quarter", "type": "temporal", "format": "%Y Q%q", "title": "Quarter"},
-      {"field": "State", "type": "nominal", "title": "State"},
-      {"field": "Purpose", "type": "nominal", "title": "Purpose"},
-      {"field": "Total_Trips", "type": "quantitative", "format": ",.1f", "title": "Total Trips"}
-    ]
-  }
+  ]
 }

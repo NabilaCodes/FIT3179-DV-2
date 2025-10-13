@@ -38,12 +38,18 @@
     <div id="linechart"></div>
   </div>
 
+  <div class="chart-container">
+    <div id="heatmap"></div>
+  </div>
+
   <script>
     const mapSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/choropleth_map.vg.json";
     const lineChartSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/LineCharts.vg.json";
+    const heatmapSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/heatmap.vg.json";
 
     vegaEmbed("#map", mapSpecURL, {mode: "vega-lite"}).catch(console.warn);
     vegaEmbed("#linechart", lineChartSpecURL, {mode: "vega-lite"}).catch(console.warn);
+    vegaEmbed("#heatmap", heatmapSpecURL, {mode: "vega-lite"}).catch(console.warn);
   </script>
 </body>
 </html>

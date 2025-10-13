@@ -5,7 +5,7 @@
   "data": {
     "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/arrivals_cleaned.csv"
   },
-  "title": "Short-Term Visitor Arrivals to Australia",
+  "title": "Overseas Visitor Arrivals to Australia over time",
   "config": {
     "view": {
       "strokeWidth": 0,

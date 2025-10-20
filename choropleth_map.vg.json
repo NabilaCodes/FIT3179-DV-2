@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Short-term Visitor Arrivals Normalized by Population",
+  "title": "Short-term visitor arrivals across different states",
   "width": 800,
   "height": 500,
 
@@ -20,23 +20,14 @@
   "projection": { "type": "mercator", "center": [133, -28], "scale": 700 },
 
   "layer": [
-    {
-      "data": { "sphere": true },
-      "mark": { "type": "geoshape", "fill": "#eef6fb", "stroke": null }
-    },
+    { "data": { "sphere": true }, "mark": { "type": "geoshape", "fill": "#eef6fb", "stroke": null } },
 
     {
       "data": {
         "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/ne_10m%20(1).json",
         "format": { "type": "topojson", "feature": "ne_10m_graticules_10" }
       },
-      "mark": {
-        "type": "geoshape",
-        "stroke": "#b8cddd",
-        "strokeWidth": 0.6,
-        "opacity": 0.9,
-        "filled": false
-      }
+      "mark": { "type": "geoshape", "stroke": "#b8cddd", "strokeWidth": 0.6, "opacity": 0.9, "filled": false }
     },
 
     {
@@ -81,7 +72,16 @@
           "field": "Visitors per 1000 Residents",
           "type": "quantitative",
           "scale": { "scheme": "tealblues", "type": "linear" },
-          "legend": { "title": "Visitors per 1,000 Residents", "format": ".1f" }
+          "legend": {
+            "title": "Visitors per 1,000 Residents",
+            "format": ".1f",
+            "labelFont": "Segoe UI",
+            "labelFontSize": 14,
+            "titleFont": "Segoe UI",
+            "titleFontSize": 14,
+            "titleColor": "#00334d",
+            "labelColor": "#00334d"
+          }
         },
         "tooltip": [
           { "field": "properties.name", "type": "nominal", "title": "State/Territory" },
@@ -103,16 +103,8 @@
       "titleFontSize": 12,
       "labelColor": "#00334d",
       "titleColor": "#00334d"
-    },
-    "legend": {
-      "labelFont": "Segoe UI",
-      "titleFont": "Segoe UI",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
-      "labelColor": "#00334d",
-      "titleColor": "#00334d"
     }
   },
 
-  "description": "Graticules drawn from the same TopoJSON (ne_10m_graticules_30). If your feature name differs, replace it in the graticule layer."
+  "description": "AI Declaration"
 }

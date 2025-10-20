@@ -1,20 +1,43 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 800,
   "height": 500,
+
   "data": {
-    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/arrivals_cleaned.csv"
+    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/arrivals_cleaned.csv",
+    "format": { "type": "csv" }
   },
-  "title": "Overseas Visitor Arrivals to Australia over time",
+
+  "title": {
+    "text": "Overseas Visitor Arrivals to Australia Over Time",
+    "font": "Segoe UI",
+    "fontSize": 20,
+    "fontWeight": "normal",
+    "color": "#00334d"
+  },
+
   "config": {
-    "view": {
-      "strokeWidth": 0,
-      "step": 50
-    },
+    "view": { "strokeWidth": 0 },
     "axis": {
-      "domain": false
+      "domain": true,
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "labelColor": "#00334d",
+      "titleColor": "#00334d"
+    },
+    "legend": {
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "labelColor": "#00334d",
+      "titleColor": "#00334d",
+      "format": ","
     }
   },
+
   "layer": [
     {
       "mark": "rect",
@@ -22,57 +45,66 @@
         "x": {
           "field": "year",
           "type": "ordinal",
-          "title": "Year"
+          "title": "Year",
+          "axis": { "labelAngle": 0 }
         },
         "y": {
           "field": "month",
           "type": "ordinal",
           "title": "Month",
           "sort": [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
+            "January","February","March","April","May","June",
+            "July","August","September","October","November","December"
           ]
         },
         "color": {
           "field": "arrivals",
           "type": "quantitative",
-          "scale": {
-            "scheme": "tealblues",
-            "type": "linear"
+          "scale": { "scheme": "tealblues", "type": "linear" },
+          "legend": { "title": "Arrivals", "format": ",.0f" }
         },
-          "legend": {
-            "title": "Arrivals ('000)"
-          }
-        }
+        "tooltip": [
+          { "field": "year", "title": "Year" },
+          { "field": "month", "title": "Month" },
+          { "field": "arrivals", "type": "quantitative", "title": "Arrivals", "format": ",.0f" }
+        ]
       }
     },
-    {
-  "data": {
-    "values": [
-      {
-        "year": "2020",
-        "month": "July",
-        "note": "↓ Decrease in Tourism during COVID"
-      }
-    ]
-  },
-  "mark": {
-    "type": "text",
-    "align": "center",
-    "baseline": "middle",
-    "dx": 70,  
-    "dy": -5,
-    "fontSize": 13,
-    "fontStyle": "italic",
-    "color": "#444"
-  },
-  "encoding": {
-    "x": { "field": "year", "type": "ordinal" },
-    "y": { "field": "month", "type": "ordinal" },
-    "text": { "field": "note", "type": "nominal" }
-  }
-}
 
+    {
+      "data": {
+        "values": [
+          {
+            "year": "2020",
+            "month": "July",
+            "note": "↓ Sharp drop during COVID-19 travel restrictions"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "dx": 70,
+        "dy": -5,
+        "fontSize": 13,
+        "fontStyle": "italic",
+        "color": "#444"
+      },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": {
+          "field": "month",
+          "type": "ordinal",
+          "sort": [
+            "January","February","March","April","May","June",
+            "July","August","September","October","November","December"
+          ]
+        },
+        "text": { "field": "note" }
+      }
+    }
   ],
-  "description": "AI Declaration: In writing this code, I have taken the help of Copilot AI by providing it with the base code for line charts from the Studio examples."
+
+  "description": "AI Declaration"
 }

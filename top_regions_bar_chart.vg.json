@@ -19,12 +19,11 @@
       "title": "Click a State",
       "height": {"step": 20},
       "transform": [
-        { "aggregate": [{"op":"count","as":"_n"}], "groupby": ["State"] },
-        { "sort": [{"field":"State","order":"ascending"}] }
+        { "aggregate": [{"op":"count","as":"_n"}], "groupby": ["State"] }
       ],
       "mark": {"type": "text", "align": "left"},
       "encoding": {
-        "y": {"field": "State", "type": "nominal", "axis": null, "title": null},
+        "y": {"field": "State", "type": "nominal", "axis": null, "title": null, "sort": "ascending"},
         "x": {"value": 0},
         "text": {"field": "State"},
         "color": {
@@ -45,15 +44,12 @@
       "height": 480,
       "transform": [
         { "filter": {"param": "State_sel"} },
-
         { "joinaggregate": [{"op": "max", "field": "Quarter", "as": "maxQuarter"}] },
         { "filter": "datum.Quarter == datum.maxQuarter" },
-
         {
           "aggregate": [{"op": "sum", "field": "Trips", "as": "Trips_sum"}],
           "groupby": ["Region"]
         },
-
         {
           "window": [{"op": "rank", "as": "rank_by_trips"}],
           "sort": [{"field": "Trips_sum", "order": "descending"}]
@@ -76,6 +72,8 @@
 
   "config": {
     "view": {"stroke": null},
-    "axis": {"labelFontSize": 12, "titleFontSize": 13}
+    "title": {"font": "Segoe UI", "fontSize": 18, "fontWeight": "normal", "color": "#00334d"},
+    "axis":  {"labelFont": "Segoe UI", "titleFont": "Segoe UI", "labelFontSize": 12, "titleFontSize": 12, "labelColor": "#00334d", "titleColor": "#00334d"},
+    "legend":{"labelFont": "Segoe UI", "titleFont": "Segoe UI", "labelFontSize": 12, "titleFontSize": 12, "labelColor": "#00334d", "titleColor": "#00334d"}
   }
 }

@@ -7,8 +7,8 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
   <style>
     h1 {
-  font-family: Georgia, serif;
-  margin-bottom: 40px;
+      font-family: Georgia, serif;
+      margin-bottom: 40px;
     }
 
     body {
@@ -17,12 +17,15 @@
       margin: 40px auto;
       max-width: 1000px;
     }
+
     h1 {
       margin-bottom: 40px;
     }
+
     .chart-container {
       margin-top: 60px;
     }
+
     .vega-bindings {
       display: flex;
       justify-content: center;
@@ -47,19 +50,38 @@
     <div id="heatmap"></div>
   </div>
 
+  <div class="chart-container">
+    <div id="lolipop"></div>
+  </div>
+
+  <div class="chart-container">
+    <div id="sidebyside"></div>
+  </div>
+
+  <div class="chart-container">
+    <div id="topregions"></div>
+  </div>
+
+  <div class="chart-container">
+    <div id="waterfall"></div>
+  </div>
+
   <script>
     const mapSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/choropleth_map.vg.json";
     const lineChartSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/LineCharts.vg.json";
     const heatmapSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/heatmap.vg.json";
+    const lolipopSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/lolipop_chart.vg.json";
+    const sideBySideSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/side_by_side_bar_chart.vg.json";
+    const topRegionsSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/top_regions_bar_chart.vg.json";
+    const waterfallSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/waterfall_chart.vg.json";
 
     vegaEmbed("#map", mapSpecURL, {mode: "vega-lite"}).catch(console.warn);
     vegaEmbed("#linechart", lineChartSpecURL, {mode: "vega-lite"}).catch(console.warn);
     vegaEmbed("#heatmap", heatmapSpecURL, {mode: "vega-lite"}).catch(console.warn);
+    vegaEmbed("#lolipop", lolipopSpecURL, {mode: "vega-lite"}).catch(console.warn);
+    vegaEmbed("#sidebyside", sideBySideSpecURL, {mode: "vega-lite"}).catch(console.warn);
+    vegaEmbed("#topregions", topRegionsSpecURL, {mode: "vega-lite"}).catch(console.warn);
+    vegaEmbed("#waterfall", waterfallSpecURL, {mode: "vega-lite"}).catch(console.warn);
   </script>
 </body>
 </html>
-
-<!-- 
-  Declaration of the use of Generative AI:
-  In writing this code, I have taken the help of Claude AI and Copilot AI by providing it with the base code for line charts from the Studio examples.
--->

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Short-term Visitor Arrivals to Australia — Top 10 Source Countries",
+  "width": 720,
+  "height": {"step": 32},
+  "params": [
+    {
+      "name": "YearParam",
+      "value": "July 2025",
+      "bind": {
+        "input": "select",
+        "options": ["July 2019", "July 2023", "July 2024", "July 2025"],
+        "name": "Select year: "
+      }
+    }
+  ],
+  "data": {
+    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Top%2010%20source%20countries.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {"fold": ["July 2019", "July 2023", "July 2024", "July 2025"], "as": ["Year", "Arrivals"]},
+    {"calculate": "toNumber(replace(datum.Arrivals, ',', ''))", "as": "ArrivalsNum"},
+    {"filter": "datum.Year == YearParam"},
+    {
+      "lookup": "Country of Residence",
+      "from": {
+        "data": {
+          "values": [
+            {"country": "New Zealand", "flag": "https://flagcdn.com/w40/nz.png"},
+            {"country": "China", "flag": "https://flagcdn.com/w40/cn.png"},
+            {"country": "UK", "flag": "https://flagcdn.com/w40/gb.png"},
+            {"country": "USA", "flag": "https://flagcdn.com/w40/us.png"},
+            {"country": "Japan", "flag": "https://flagcdn.com/w40/jp.png"},
+            {"country": "Singapore", "flag": "https://flagcdn.com/w40/sg.png"},
+            {"country": "South Korea", "flag": "https://flagcdn.com/w40/kr.png"},
+            {"country": "India", "flag": "https://flagcdn.com/w40/in.png"},
+            {"country": "Hong Kong", "flag": "https://flagcdn.com/w40/hk.png"},
+            {"country": "Taiwan", "flag": "https://flagcdn.com/w40/tw.png"}
+          ]
+        },
+        "key": "country",
+        "fields": ["flag"]
+      }
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "rule", "strokeWidth": 3},
+      "encoding": {
+        "y": {
+          "field": "Country of Residence",
+          "type": "nominal",
+          "sort": {"field": "ArrivalsNum", "order": "descending"},
+          "title": "Country"
+        },
+        "x": {
+          "field": "ArrivalsNum",
+          "type": "quantitative",
+          "title": "Arrivals",
+          "axis": {"format": ",.0f"}
+        },
+        "x2": {"value": 0},
+        "tooltip": [
+          {"field": "Country of Residence", "title": "Country"},
+          {"field": "Year", "title": "Year"},
+          {"field": "ArrivalsNum", "type": "quantitative", "title": "Arrivals", "format": ",.0f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "image", "width": 24, "height": 16, "baseline": "middle"},
+      "encoding": {
+        "y": {
+          "field": "Country of Residence",
+          "type": "nominal",
+          "sort": {"field": "ArrivalsNum", "order": "descending"}
+        },
+        "x": {
+          "field": "ArrivalsNum",
+          "type": "quantitative",
+          "axis": {"format": ",.0f"}
+        },
+        "url": {"field": "flag"},
+        "tooltip": [
+          {"field": "Country of Residence", "title": "Country"},
+          {"field": "Year", "title": "Year"},
+          {"field": "ArrivalsNum", "type": "quantitative", "title": "Arrivals", "format": ",.0f"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"labelFontSize": 12, "titleFontSize": 13}
+  }
+}

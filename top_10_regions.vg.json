@@ -1,0 +1,81 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Top 10 Regions by State (Latest Quarter)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/KaggleTourismDataset.csv",
+    "format": {"type": "csv"}
+  },
+
+  "params": [
+    {
+      "name": "State_sel",
+      "select": { "type": "point", "fields": ["State"] },
+      "value": { "State": "Victoria" }
+    }
+  ],
+
+  "vconcat": [
+    {
+      "title": "Click a State",
+      "height": {"step": 20},
+      "transform": [
+        { "aggregate": [{"op":"count","as":"_n"}], "groupby": ["State"] },
+        { "sort": [{"field":"State","order":"ascending"}] }
+      ],
+      "mark": {"type": "text", "align": "left"},
+      "encoding": {
+        "y": {"field": "State", "type": "nominal", "axis": null, "title": null},
+        "x": {"value": 0},
+        "text": {"field": "State"},
+        "color": {
+          "condition": {"param": "State_sel", "value": "black"},
+          "value": "#888"
+        },
+        "size": {
+          "condition": {"param": "State_sel", "value": 14},
+          "value": 12
+        },
+        "tooltip": [{"field":"State","title":"State"}]
+      }
+    },
+
+    {
+      "title": "Top 10 Regions — Selected State (Latest Quarter)",
+      "width": 800,
+      "height": 480,
+      "transform": [
+        { "filter": {"param": "State_sel"} },
+
+        { "joinaggregate": [{"op": "max", "field": "Quarter", "as": "maxQuarter"}] },
+        { "filter": "datum.Quarter == datum.maxQuarter" },
+
+        {
+          "aggregate": [{"op": "sum", "field": "Trips", "as": "Trips_sum"}],
+          "groupby": ["Region"]
+        },
+
+        {
+          "window": [{"op": "rank", "as": "rank_by_trips"}],
+          "sort": [{"field": "Trips_sum", "order": "descending"}]
+        },
+        { "filter": "datum.rank_by_trips <= 10" }
+      ],
+      "mark": {"type": "bar", "tooltip": true},
+      "encoding": {
+        "y": {"field": "Region", "type": "nominal", "sort": "-x", "title": "Region"},
+        "x": {
+          "field": "Trips_sum",
+          "type": "quantitative",
+          "title": "Trips (latest quarter)",
+          "axis": {"format": ",.0f"}
+        },
+        "color": {"value": "#1f77b4"}
+      }
+    }
+  ],
+
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"labelFontSize": 12, "titleFontSize": 13}
+  }
+}

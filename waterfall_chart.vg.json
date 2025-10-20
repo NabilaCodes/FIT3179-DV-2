@@ -63,9 +63,9 @@
         "color": {
           "condition": [
             { "test": "datum.label === 'Begin' || datum.label === 'End'", "value": "#f7e0b6" },
-            { "test": "datum.sum < datum.previous_sum", "value": "#f78a64" }
+            { "test": "datum.sum < datum.previous_sum", "value": "#e57373" }
           ],
-          "value": "#93c4aa"
+          "value": "#5b9bd5"
         },
         "tooltip": [
           { "field": "label", "title": "Year" },
@@ -95,5 +95,21 @@
       }
     }
   ],
-  "config": { "text": { "fontWeight": "bold", "color": "#404040" } }
+  "config": {
+    "text": { "font": "Segoe UI", "fontWeight": "bold", "color": "#404040" },
+    "axis": {
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "labelColor": "#00334d",
+      "titleColor": "#00334d"
+    },
+    "title": {
+      "font": "Segoe UI",
+      "fontSize": 20,
+      "fontWeight": "normal",
+      "color": "#00334d"
+    }
+  }
 }

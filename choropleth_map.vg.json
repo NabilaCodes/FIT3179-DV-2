@@ -3,6 +3,7 @@
   "title": "Short-term Visitor Arrivals Normalized by Population",
   "width": 800,
   "height": 500,
+
   "params": [
     {
       "name": "Year_selection",
@@ -15,95 +16,103 @@
       }
     }
   ],
-  "data": {
-    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/ne_10m%20(1).json",
-    "format": {
-      "type": "topojson",
-      "feature": "ne_10m_admin_1_states_provinces"
-    }
-  },
-  "projection": {
-    "type": "mercator",
-    "center": [133, -28],
-    "scale": 700
-  },
-  "transform": [
+
+  "projection": { "type": "mercator", "center": [133, -28], "scale": 700 },
+
+  "layer": [
     {
-      "lookup": "properties.name",
-      "from": {
-        "data": {
-          "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Choropleth%20dataset.csv"
-        },
-        "key": "State or territory of stay",
-        "fields": ["July 2019", "July 2023", "July 2024", "July 2025"]
+      "data": { "sphere": true },
+      "mark": { "type": "geoshape", "fill": "#eef6fb", "stroke": null }
+    },
+
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/ne_10m%20(1).json",
+        "format": { "type": "topojson", "feature": "ne_10m_graticules_10" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#b8cddd",
+        "strokeWidth": 0.6,
+        "opacity": 0.9,
+        "filled": false
       }
     },
+
     {
-      "lookup": "properties.name",
-      "from": {
-        "data": {
-          "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Population%20dataset%20for%20normalisation.csv"
+      "data": {
+        "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/ne_10m%20(1).json",
+        "format": { "type": "topojson", "feature": "ne_10m_admin_1_states_provinces" }
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Choropleth%20dataset.csv"
+            },
+            "key": "State or territory of stay",
+            "fields": ["July 2019", "July 2023", "July 2024", "July 2025"]
+          }
         },
-        "key": "State or territory of stay",
-        "fields": ["2019", "2023", "2024", "2025"]
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Population%20dataset%20for%20normalisation.csv"
+            },
+            "key": "State or territory of stay",
+            "fields": ["2019", "2023", "2024", "2025"]
+          }
+        },
+        {
+          "calculate": "Year_selection == 'July 2019' ? datum['July 2019'] : Year_selection == 'July 2023' ? datum['July 2023'] : Year_selection == 'July 2024' ? datum['July 2024'] : datum['July 2025']",
+          "as": "Visitor Arrivals"
+        },
+        {
+          "calculate": "Year_selection == 'July 2019' ? datum['2019'] : Year_selection == 'July 2023' ? datum['2023'] : Year_selection == 'July 2024' ? datum['2024'] : datum['2025']",
+          "as": "Population"
+        },
+        { "calculate": "datum['Visitor Arrivals'] / datum['Population'] * 1000", "as": "Visitors per 1000 Residents" }
+      ],
+      "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 1 },
+      "encoding": {
+        "color": {
+          "field": "Visitors per 1000 Residents",
+          "type": "quantitative",
+          "scale": { "scheme": "tealblues", "type": "linear" },
+          "legend": { "title": "Visitors per 1,000 Residents", "format": ".1f" }
+        },
+        "tooltip": [
+          { "field": "properties.name", "type": "nominal", "title": "State/Territory" },
+          { "field": "Visitor Arrivals", "type": "quantitative", "title": "Visitors", "format": "," },
+          { "field": "Population", "type": "quantitative", "title": "Population", "format": "," },
+          { "field": "Visitors per 1000 Residents", "type": "quantitative", "title": "Visitors per 1,000 Residents", "format": ".1f" }
+        ]
       }
-    },
-    {
-      "calculate": "Year_selection == 'July 2019' ? datum['July 2019'] : Year_selection == 'July 2023' ? datum['July 2023'] : Year_selection == 'July 2024' ? datum['July 2024'] : datum['July 2025']",
-      "as": "Visitor Arrivals"
-    },
-    {
-      "calculate": "Year_selection == 'July 2019' ? datum['2019'] : Year_selection == 'July 2023' ? datum['2023'] : Year_selection == 'July 2024' ? datum['2024'] : datum['2025']",
-      "as": "Population"
-    },
-    {
-      "calculate": "datum['Visitor Arrivals'] / datum['Population'] * 1000",
-      "as": "Visitors per 1000 Residents"
     }
   ],
-  "mark": {
-    "type": "geoshape",
-    "stroke": "white",
-    "strokeWidth": 1
-  },
-  "encoding": {
-    "color": {
-      "field": "Visitors per 1000 Residents",
-      "type": "quantitative",
-      "scale": {
-        "scheme": "tealblues",
-        "type": "linear"
-      },
-      "legend": {
-        "title": "Visitors per 1,000 Residents",
-        "format": ".1f"
-      }
+
+  "config": {
+    "view": { "stroke": null },
+    "title": { "font": "Segoe UI", "fontSize": 20, "fontWeight": "normal", "color": "#00334d" },
+    "axis": {
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#00334d",
+      "titleColor": "#00334d"
     },
-    "tooltip": [
-      {
-        "field": "properties.name",
-        "type": "nominal",
-        "title": "State/Territory"
-      },
-      {
-        "field": "Visitor Arrivals",
-        "type": "quantitative",
-        "title": "Visitors",
-        "format": ","
-      },
-      {
-        "field": "Population",
-        "type": "quantitative",
-        "title": "Population",
-        "format": ","
-      },
-      {
-        "field": "Visitors per 1000 Residents",
-        "type": "quantitative",
-        "title": "Visitors per 1,000 Residents",
-        "format": ".1f"
-      }
-    ]
+    "legend": {
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#00334d",
+      "titleColor": "#00334d"
+    }
   },
-  "description": "AI Declaration: In writing this code, I have taken the help of Copilot AI by providing it with the base code for choropleth maps from the Studio examples."
+
+  "description": "Graticules drawn from the same TopoJSON (ne_10m_graticules_30). If your feature name differs, replace it in the graticule layer."
 }

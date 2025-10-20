@@ -1,87 +1,323 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Australian Visitor Arrivals & Tourism Trends</title>
+  <title>Tourism in Australia – A Data Story</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
   <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e6f2f8;
+      color: #333;
+    }
+
     h1 {
       font-family: Georgia, serif;
-      margin-bottom: 40px;
-    }
-
-    body {
-      font-family: sans-serif;
       text-align: center;
-      margin: 40px auto;
-      max-width: 1000px;
+      padding: 40px 20px;
+      margin: 0;
+      background-color: #cce6f5;
+      color: #00334d;
+      line-height: 1.25;
     }
 
-    h1 {
-      margin-bottom: 40px;
-    }
-
-    .chart-container {
-      margin-top: 60px;
-    }
-
-    .vega-bindings {
+    .section {
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 10px auto;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 60px;
+      gap: 40px;
+    }
+
+    .section:nth-child(even) {
+      background-color: #f5fbfd;
+    }
+
+    .text-box {
+      flex: 1;
+      max-width: 40%;
+    }
+
+    .text-box h2 {
+      font-family: Georgia, serif;
+      margin-bottom: 10px;
+      color: #004466;
+    }
+
+    .kicker {
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-size: 12px;
+      color: #4c7080;
+      margin: 0 0 6px;
+    }
+
+    .text-box p {
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0 0 10px;
+    }
+
+    .chart-box {
+      flex: 1;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .tips {
+      font-size: 13px;
+      color: #355b6b;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .section {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 20px;
+      }
+      .text-box, .chart-box {
+        max-width: 100%;
+      }
+      .chart-box { padding: 14px; }
     }
   </style>
 </head>
 
 <body>
-  <h1>Tourism in Australia - Dashboard </h1>
+ <div style="
+  background-color:#cce6f5;
+  color:#00334d;
+  text-align:center;
+  padding:45px 20px 35px;
+  margin:0;
+">
+  <h1 style="
+    font-family: Georgia, serif;
+    font-size: 40px;
+    margin: 0;
+    line-height: 1.2;
+  ">
+    Tourism in Australia
+  </h1>
+  <h3 style="
+    font-family:'Segoe UI', sans-serif;
+    font-weight:400;
+    font-style:italic;
+    font-size:21px;
+    margin-top:4px;
+    margin-bottom:0;
+    color:#00334d;
+  ">
+    A story across regions, seasons, purposes, and economies - connecting home and abroad
+  </h3>
+</div>
 
-  <div class="chart-container">
-    <div id="map"></div>
+  <!-- 1) Choropleth -->
+  <div class="section">
+    <div class="text-box">
+      <div class="kicker">National Overview</div>
+      <h2>Tourism across Australia</h2>
+      <p>
+        Tourism plays a vital role in shaping local economies and communities across Australia. 
+        This map presents short-term visitor arrivals adjusted for population, allowing for fair comparison between states and territories.
+        The results show which regions experience the greatest relative tourism impact.
+      </p>
+      <p class="tips">Select different years to examine how patterns of visitor concentration have shifted over time.</p>
+    </div>
+    <div class="chart-box">
+      <div id="map"></div>
+    </div>
   </div>
 
-  <div class="chart-container">
-    <div id="linechart"></div>
+  <!-- 2) Top regions -->
+  <div class="section">
+    <div class="text-box">
+      <div class="kicker">Destinations</div>
+      <h2>Most Popular Regions by State</h2>
+      <p>
+        Within each state, tourism is concentrated in a small number of regions. 
+        This chart highlights the top ten destinations that attract the highest number of visitors, 
+        illustrating the uneven distribution of travel activity across Australia.
+      </p>
+      <p class="tips">Click on a state name to view its leading regional destinations.</p>
+    </div>
+    <div class="chart-box">
+      <div id="topregions"></div>
+    </div>
   </div>
 
-  <div class="chart-container">
-    <div id="heatmap"></div>
+  <!-- 3) Heatmap -->
+  <div class="section">
+    <div class="text-box">
+      <div class="kicker">Seasonality</div>
+      <h2>Tourism Activity Over Time</h2>
+      <p>
+        Visitor numbers in Australia fluctuate throughout the year due to weather patterns, 
+        school holidays, and global travel trends. The heatmap shows when activity peaks and declines,
+        revealing the seasonal rhythm of domestic tourism across different states and quarters.
+      </p>
+      <p class="tips">Look for consistent seasonal peaks and off-peak periods that reflect travel habits across years.</p>
+    </div>
+    <div class="chart-box">
+      <div id="heatmap"></div>
+    </div>
   </div>
 
-  <div class="chart-container">
-    <div id="lolipop"></div>
+  <!-- 4) Line chart -->
+  <div class="section">
+    <div class="text-box">
+      <div class="kicker">Purpose of Travel</div>
+      <h2>Why People Travel Within Australia</h2>
+      <p>
+        Australians travel for many reasons — leisure, business, visiting friends and relatives, or other personal needs. 
+        These lines track how each purpose has evolved over time, reflecting broader social and economic changes that influence travel behaviour.
+      </p>
+      <p class="tips">Use the dropdown to compare different travel purposes and observe changing trends through time.</p>
+    </div>
+    <div class="chart-box">
+      <div id="linechart"></div>
+    </div>
   </div>
 
-  <div class="chart-container">
-    <div id="sidebyside"></div>
+  <!-- 5) Waterfall -->
+  <div class="section">
+    <div class="text-box">
+      <div class="kicker">Economic Contribution</div>
+      <h2>Tourism’s Changing Role in the Economy</h2>
+      <p>
+        Tourism contributes significantly to Australia’s national income, though its impact varies year by year.
+        The waterfall chart traces these fluctuations, highlighting the years that recorded the largest gains or declines in contribution to GDP.
+      </p>
+      <p class="tips">Examine periods of strong growth and decline to understand how tourism responds to global and domestic events.</p>
+    </div>
+    <div class="chart-box">
+      <div id="waterfall"></div>
+    </div>
   </div>
 
-  <div class="chart-container">
-    <div id="topregions"></div>
+  <!-- 6) Side-by-side -->
+  <div class="section">
+    <div class="text-box">
+      <div class="kicker">Domestic vs International</div>
+      <h2>How Visitors Support the Economy</h2>
+      <p>
+        Both domestic and international tourism drive Australia’s economic performance. 
+        This comparison shows how each group contributes to total tourism spending, and how these proportions shift over time.
+      </p>
+      <p class="tips">Compare the size of each bar to see when international tourism overtakes domestic activity and how recovery patterns differ.</p>
+    </div>
+    <div class="chart-box">
+      <div id="sidebyside"></div>
+    </div>
   </div>
 
-  <div class="chart-container">
-    <div id="waterfall"></div>
+  <!-- 7) Lollipop -->
+  <div class="section">
+    <div class="text-box">
+      <div class="kicker">Source Markets</div>
+      <h2>Where International Visitors Come From</h2>
+      <p>
+        Australia’s inbound tourism is shaped by a small group of major source countries. 
+        This chart ranks the top ten markets, showing how international travel patterns evolve and which nations contribute the most visitors each year.
+      </p>
+      <p class="tips">Switch between years to explore how Australia’s visitor mix changes over time.</p>
+    </div>
+    <div class="chart-box">
+      <div id="lolipop"></div>
+    </div>
   </div>
 
   <script>
-    const mapSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/choropleth_map.vg.json";
+    const mapSpecURL       = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/choropleth_map.vg.json";
     const lineChartSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/LineCharts.vg.json";
-    const heatmapSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/heatmap.vg.json";
-    const lolipopSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/lolipop_chart.vg.json";
-    const sideBySideSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/side_by_side_bar_chart.vg.json";
-    const topRegionsSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/top_regions_bar_chart.vg.json";
+    const heatmapSpecURL   = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/heatmap.vg.json";
+    const lolipopSpecURL   = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/lolipop_chart.vg.json";
+    const sideBySideSpecURL= "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/side_by_side_bar_chart.vg.json";
+    const topRegionsSpecURL= "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/top_regions_bar_chart.vg.json";
     const waterfallSpecURL = "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/waterfall_chart.vg.json";
 
-    vegaEmbed("#map", mapSpecURL, {mode: "vega-lite"}).catch(console.warn);
-    vegaEmbed("#linechart", lineChartSpecURL, {mode: "vega-lite"}).catch(console.warn);
-    vegaEmbed("#heatmap", heatmapSpecURL, {mode: "vega-lite"}).catch(console.warn);
-    vegaEmbed("#lolipop", lolipopSpecURL, {mode: "vega-lite"}).catch(console.warn);
-    vegaEmbed("#sidebyside", sideBySideSpecURL, {mode: "vega-lite"}).catch(console.warn);
-    vegaEmbed("#topregions", topRegionsSpecURL, {mode: "vega-lite"}).catch(console.warn);
-    vegaEmbed("#waterfall", waterfallSpecURL, {mode: "vega-lite"}).catch(console.warn);
+    // Hide all Vega action buttons
+    const embedOptions = { mode: "vega-lite", actions: false };
+
+    vegaEmbed("#map", mapSpecURL, embedOptions).catch(console.warn);
+    vegaEmbed("#topregions", topRegionsSpecURL, embedOptions).catch(console.warn);
+    vegaEmbed("#heatmap", heatmapSpecURL, embedOptions).catch(console.warn);
+    vegaEmbed("#linechart", lineChartSpecURL, embedOptions).catch(console.warn);
+    vegaEmbed("#waterfall", waterfallSpecURL, embedOptions).catch(console.warn);
+    vegaEmbed("#sidebyside", sideBySideSpecURL, embedOptions).catch(console.warn);
+    vegaEmbed("#lolipop", lolipopSpecURL, embedOptions).catch(console.warn);
   </script>
+
+
+<!-- ===== METADATA FOOTER ===== -->
+<footer style="
+  background-color:#f0f7fa;
+  color:#00334d;
+  font-family:'Segoe UI', sans-serif;
+  font-size:14px;
+  line-height:1.7;
+  padding:30px 60px;
+  text-align:left;
+  border-top:2px solid #cce6f5;
+  margin-top:60px;
+">
+  <p style="margin:0 0 6px 0;"><strong>Author:</strong> Nabila Hasan</p>
+  <p style="margin:0 0 6px 0;"><strong>Date:</strong> 21 October 2025</p>
+
+  <p style="margin:10px 0 4px 0;"><strong>Data Sources:</strong></p>
+  <ol style="margin:6px 0 0 20px; padding-left:0;">
+    <li>
+      Australian Bureau of Statistics, <em>Overseas Arrivals and Departures, Australia July 2025</em>.  
+      <br>
+      <a href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/latest-release" 
+         target="_blank" style="color:#004466; text-decoration:none;">
+         https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/latest-release
+      </a>
+    </li>
+    <li>
+      Kaggle, <em>Quarterly Tourism in Australia</em>.  
+      <br>
+      <a href="https://www.kaggle.com/datasets/luisblanche/quarterly-tourism-in-australia" 
+         target="_blank" style="color:#004466; text-decoration:none;">
+         https://www.kaggle.com/datasets/luisblanche/quarterly-tourism-in-australia
+      </a>
+    </li>
+    <li>
+      Australian Bureau of Statistics, <em>Tourism Satellite Account 2023–24 Financial Year</em>.  
+      <br>
+      <a href="https://www.abs.gov.au/statistics/economy/national-accounts/tourism-satellite-account/latest-release" 
+         target="_blank" style="color:#004466; text-decoration:none;">
+         https://www.abs.gov.au/statistics/economy/national-accounts/tourism-satellite-account/latest-release
+      </a>
+    </li>
+    <li>
+      Australian Bureau of Statistics, <em>3101.0 National, State and Territory Population</em>.  
+      <br>
+      <a href="https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/latest-release" 
+         target="_blank" style="color:#004466; text-decoration:none;">
+         https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/latest-release
+      </a>
+    </li>
+    <li>
+      Natural Earth Spatial Data, <em>1:10m Cultural Vectors and Physical Vectors</em>.  
+      <br>
+      <a href="https://www.naturalearthdata.com/downloads/" 
+         target="_blank" style="color:#004466; text-decoration:none;">
+         https://www.naturalearthdata.com/downloads/
+      </a>
+    </li>
+  </ol>
+</footer>
+
+
 </body>
 </html>

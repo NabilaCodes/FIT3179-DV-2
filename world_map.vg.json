@@ -1,0 +1,205 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Migration Flow to Australia by Country of Residence",
+  "width": 900,
+  "height": 500,
+  "params": [
+    {
+      "name": "Year_selection",
+      "value": "July 2025",
+      "bind": {
+        "input": "select",
+        "options": ["July 2019", "July 2023", "July 2024", "July 2025"],
+        "labels": ["July 2019", "July 2023", "July 2024", "July 2025"],
+        "name": "Select Year: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "naturalEarth1"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/ne_110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_admin_0_countries"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e8e8e8",
+        "stroke": "white",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Top%2010%20source%20countries.csv"
+      },
+      "transform": [
+        {
+          "calculate": "Year_selection == 'July 2019' ? datum['July 2019'] : Year_selection == 'July 2023' ? datum['July 2023'] : Year_selection == 'July 2024' ? datum['July 2024'] : datum['July 2025']",
+          "as": "Migration_Count"
+        },
+        {
+          "calculate": "datum['Country of Residence'] == 'New Zealand' ? 174 : datum['Country of Residence'] == 'China(b)' ? 104 : datum['Country of Residence'] == 'UK' ? -3 : datum['Country of Residence'] == 'USA' ? -95 : datum['Country of Residence'] == 'Japan' ? 138 : datum['Country of Residence'] == 'Singapore' ? 103.8 : datum['Country of Residence'] == 'Korea, South' ? 127.5 : datum['Country of Residence'] == 'India' ? 78 : datum['Country of Residence'] == 'Hong Kong' ? 114.2 : datum['Country of Residence'] == 'Taiwan' ? 121 : 0",
+          "as": "origin_longitude"
+        },
+        {
+          "calculate": "datum['Country of Residence'] == 'New Zealand' ? -41 : datum['Country of Residence'] == 'China(b)' ? 35 : datum['Country of Residence'] == 'UK' ? 54 : datum['Country of Residence'] == 'USA' ? 37 : datum['Country of Residence'] == 'Japan' ? 36 : datum['Country of Residence'] == 'Singapore' ? 1.35 : datum['Country of Residence'] == 'Korea, South' ? 37 : datum['Country of Residence'] == 'India' ? 20 : datum['Country of Residence'] == 'Hong Kong' ? 22.3 : datum['Country of Residence'] == 'Taiwan' ? 24 : 0",
+          "as": "origin_latitude"
+        },
+        {
+          "calculate": "133",
+          "as": "dest_longitude"
+        },
+        {
+          "calculate": "-27",
+          "as": "dest_latitude"
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 2,
+        "opacity": 0.6
+      },
+      "encoding": {
+        "longitude": {
+          "field": "origin_longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "origin_latitude",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "dest_longitude"
+        },
+        "latitude2": {
+          "field": "dest_latitude"
+        },
+        "strokeWidth": {
+          "field": "Migration_Count",
+          "type": "quantitative",
+          "scale": {
+            "range": [1, 8]
+          },
+          "legend": {
+            "title": "Flow Thickness"
+          }
+        },
+        "color": {
+          "field": "Migration_Count",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "blues"
+          },
+          "legend": {
+            "title": "Number of Migrants",
+            "format": ","
+          }
+        },
+        "tooltip": [
+          {
+            "field": "Country of Residence",
+            "type": "nominal",
+            "title": "Origin Country"
+          },
+          {
+            "field": "Migration_Count",
+            "type": "quantitative",
+            "title": "Migrants",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Top%2010%20source%20countries.csv"
+      },
+      "transform": [
+        {
+          "calculate": "datum['Country of Residence'] == 'New Zealand' ? 174 : datum['Country of Residence'] == 'China(b)' ? 104 : datum['Country of Residence'] == 'UK' ? -3 : datum['Country of Residence'] == 'USA' ? -95 : datum['Country of Residence'] == 'Japan' ? 138 : datum['Country of Residence'] == 'Singapore' ? 103.8 : datum['Country of Residence'] == 'Korea, South' ? 127.5 : datum['Country of Residence'] == 'India' ? 78 : datum['Country of Residence'] == 'Hong Kong' ? 114.2 : datum['Country of Residence'] == 'Taiwan' ? 121 : 0",
+          "as": "longitude"
+        },
+        {
+          "calculate": "datum['Country of Residence'] == 'New Zealand' ? -41 : datum['Country of Residence'] == 'China(b)' ? 35 : datum['Country of Residence'] == 'UK' ? 54 : datum['Country of Residence'] == 'USA' ? 37 : datum['Country of Residence'] == 'Japan' ? 36 : datum['Country of Residence'] == 'Singapore' ? 1.35 : datum['Country of Residence'] == 'Korea, South' ? 37 : datum['Country of Residence'] == 'India' ? 20 : datum['Country of Residence'] == 'Hong Kong' ? 22.3 : datum['Country of Residence'] == 'Taiwan' ? 24 : 0",
+          "as": "latitude"
+        },
+        {
+          "calculate": "Year_selection == 'July 2019' ? datum['July 2019'] : Year_selection == 'July 2023' ? datum['July 2023'] : Year_selection == 'July 2024' ? datum['July 2024'] : datum['July 2025']",
+          "as": "Migration_Count"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "size": 100,
+        "fill": "#ff6b6b",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "Country of Residence",
+            "type": "nominal",
+            "title": "Origin Country"
+          },
+          {
+            "field": "Migration_Count",
+            "type": "quantitative",
+            "title": "Migrants",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "longitude": 133,
+            "latitude": -27,
+            "country": "Australia"
+          }
+        ]
+      },
+      "mark": {
+        "type": "circle",
+        "size": 200,
+        "fill": "#4ecdc4",
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "type": "nominal",
+            "title": "Destination"
+          }
+        ]
+      }
+    }
+  ],
+  "description": "AI Declaration: In writing this code, I have taken the help of Claude AI by providing it with the CSV data and TopJSON world map requirements."
+}

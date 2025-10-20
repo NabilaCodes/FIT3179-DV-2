@@ -1,0 +1,46 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Side-by-side bar chart comparing Domestic and International consumption over years.",
+  "data": {
+    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Tourism%20consumption%20in%20purchasers'%20prices%20over%20time.csv"
+  },
+  "transform": [
+    {
+      "fold": [
+        "Domestic consumption ($b)",
+        "International consumption ($b)"
+      ],
+      "as": ["Type", "Consumption"]
+    }
+  ],
+  "width": 600,
+  "height": 400,
+  "mark": {
+    "type": "bar",
+    "cornerRadiusTopLeft": 4,
+    "cornerRadiusTopRight": 4
+  },
+  "encoding": {
+    "x": {
+      "field": "Financial year",
+      "type": "ordinal",
+      "axis": {"title": "Financial Year"}
+    },
+    "y": {
+      "field": "Consumption",
+      "type": "quantitative",
+      "axis": {"title": "Consumption ($ billions)"}
+    },
+    "color": {
+      "field": "Type",
+      "type": "nominal",
+      "title": "Consumption Type",
+      "scale": {"scheme": "tableau10"}
+    },
+    "xOffset": {"field": "Type"}
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"labelFontSize": 12, "titleFontSize": 14}
+  }
+}

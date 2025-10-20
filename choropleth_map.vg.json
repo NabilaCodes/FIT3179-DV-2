@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Short-term Visitor Arrivals by State/Territory",
+  "title": "Short-term Visitor Arrivals Normalized by Population",
   "width": 800,
   "height": 500,
   "params": [
@@ -39,8 +39,26 @@
       }
     },
     {
+      "lookup": "properties.name",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/Population%20dataset%20for%20normalisation.csv"
+        },
+        "key": "State or territory of stay",
+        "fields": ["2019", "2023", "2024", "2025"]
+      }
+    },
+    {
       "calculate": "Year_selection == 'July 2019' ? datum['July 2019'] : Year_selection == 'July 2023' ? datum['July 2023'] : Year_selection == 'July 2024' ? datum['July 2024'] : datum['July 2025']",
       "as": "Visitor Arrivals"
+    },
+    {
+      "calculate": "Year_selection == 'July 2019' ? datum['2019'] : Year_selection == 'July 2023' ? datum['2023'] : Year_selection == 'July 2024' ? datum['2024'] : datum['2025']",
+      "as": "Population"
+    },
+    {
+      "calculate": "datum['Visitor Arrivals'] / datum['Population'] * 1000",
+      "as": "Visitors per 1000 Residents"
     }
   ],
   "mark": {
@@ -50,18 +68,17 @@
   },
   "encoding": {
     "color": {
-  "field": "Visitor Arrivals",
-  "type": "quantitative",
-  "scale": {
-    "scheme": "tealblues",
-    "type": "linear"
-  },
-  "legend": {
-    "title": "Number of Visitors",
-    "format": ","
-  }
-}
-,
+      "field": "Visitors per 1000 Residents",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "tealblues",
+        "type": "linear"
+      },
+      "legend": {
+        "title": "Visitors per 1,000 Residents",
+        "format": ".1f"
+      }
+    },
     "tooltip": [
       {
         "field": "properties.name",
@@ -73,9 +90,20 @@
         "type": "quantitative",
         "title": "Visitors",
         "format": ","
+      },
+      {
+        "field": "Population",
+        "type": "quantitative",
+        "title": "Population",
+        "format": ","
+      },
+      {
+        "field": "Visitors per 1000 Residents",
+        "type": "quantitative",
+        "title": "Visitors per 1,000 Residents",
+        "format": ".1f"
       }
     ]
   },
-
-"description" : "AI Declaration: In writing this code, I have taken the help of Claude AI by providing it with the base code for line charts from the Studio examples."
+  "description": "AI Declaration: In writing this code, I have taken the help of Copilot AI by providing it with the base code for choropleth maps from the Studio examples."
 }

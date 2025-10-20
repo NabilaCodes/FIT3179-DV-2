@@ -42,5 +42,6 @@
   "config": {
     "view": {"stroke": "transparent"},
     "axis": {"labelFontSize": 12, "titleFontSize": 14}
-  }
+  },
+  "description": "AI Declaration: In writing this code, I have taken the help of ChatGPT AI by providing it with the base code for choropleth maps from the Studio examples."
 }

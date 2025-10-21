@@ -15,6 +15,13 @@
   ],
   "width": 600,
   "height": 400,
+  "title": {
+    "text": "Domestic vs International Tourism Consumption",
+    "font": "Segoe UI",
+    "fontSize": 20,
+    "fontWeight": "normal",
+    "color": "#00334d"
+  },
   "mark": {
     "type": "bar",
     "cornerRadiusTopLeft": 4,
@@ -24,24 +31,42 @@
     "x": {
       "field": "Financial year",
       "type": "ordinal",
-      "axis": {"title": "Financial Year"}
+      "axis": { "title": "Financial Year", "labelAngle": 0 }
     },
     "y": {
       "field": "Consumption",
       "type": "quantitative",
-      "axis": {"title": "Consumption ($ billions)"}
+      "axis": { "title": "Consumption ($ billions)" }
     },
     "color": {
       "field": "Type",
       "type": "nominal",
       "title": "Consumption Type",
-      "scale": {"scheme": "tableau10"}
+      "scale": {
+        "domain": ["Domestic consumption ($b)", "International consumption ($b)"],
+        "range": ["#b39ddb", "#a5d6a7"]
+      }
     },
-    "xOffset": {"field": "Type"}
+    "xOffset": { "field": "Type" }
   },
   "config": {
-    "view": {"stroke": "transparent"},
-    "axis": {"labelFontSize": 12, "titleFontSize": 14}
+    "view": { "stroke": "transparent" },
+    "axis": {
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 12,
+      "titleFontSize": 14,
+      "labelColor": "#00334d",
+      "titleColor": "#00334d"
+    },
+    "legend": {
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "labelColor": "#00334d",
+      "titleColor": "#00334d"
+    }
   },
   "description": "AI Declaration: In writing this code, I have taken the help of ChatGPT AI by providing it with the base code for choropleth maps from the Studio examples."
 }

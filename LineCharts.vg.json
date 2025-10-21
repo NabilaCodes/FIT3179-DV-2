@@ -52,14 +52,25 @@
           "type": "nominal",
           "title": "State",
           "scale": {
+            "domain": [
+              "Victoria",
+              "Queensland",
+              "New South Wales",
+              "Northern Territory",
+              "Western Australia",
+              "South Australia",
+              "Australian Capital Territory",
+              "Tasmania"
+            ],
             "range": [
-              "#009E73",  
               "#CC79A7",  
-              "#8A70C9",  
-              "#E69F00",  
-              "#0072B2",  
+              "#8A70C9", 
               "#E67E00",  
-              "#808080"  
+              "#009E73",  
+              "#0072B2",  
+              "#E69F00",  
+              "#808080",  
+              "#D55E00"   
             ]
           },
           "legend": { "orient": "bottom" }
@@ -103,17 +114,26 @@
           "type": "nominal",
           "legend": null,
           "scale": {
+            "domain": [
+              "Victoria",
+              "Queensland",
+              "New South Wales",
+              "Northern Territory",
+              "Western Australia",
+              "South Australia",
+              "Australian Capital Territory",
+              "Tasmania"
+            ],
             "range": [
-
-              "#009E73",  
-              "#CC79A7",  
-              "#8A70C9",  
-              "#E69F00",  
-              "#0072B2",  
-              "#E67E00",  
-              "#808080"  
-    ]
-            
+              "#CC79A7",
+              "#8A70C9",
+              "#009E73",
+              "#E67E00",
+              "#0072B2",
+              "#E69F00",
+              "#808080",
+              "#D55E00"
+            ]
           }
         }
       }
@@ -139,5 +159,5 @@
       "titleColor": "#00334d"
     }
   },
-  "description": "AI Declaration: In writing this code, I have taken the help of ChatGPT by providing it with the base code for line charts from the Studio examples."
+  "description": "Manual state color mapping to match the palette used across the dashboard."
 }

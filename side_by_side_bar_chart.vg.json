@@ -13,8 +13,8 @@
       "as": ["Type", "Consumption"]
     }
   ],
-  "width": 600,
-  "height": 400,
+  "width": 800,
+  "height": 500,
   "title": {
     "text": "Domestic vs International Tourism Consumption",
     "font": "Segoe UI",

@@ -1,0 +1,117 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Top 10 Regions by State",
+    "font": "Segoe UI",
+    "fontSize": 20,
+    "fontWeight": "normal",
+    "color": "#00334d"
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/NabilaCodes/FIT3179-DV-2/refs/heads/main/KaggleTourismDataset.csv",
+    "format": {"type": "csv"}
+  },
+  "width": 800,
+  "height": 500,
+
+  "params": [
+    {
+      "name": "State_choice",
+      "value": "Victoria",
+      "bind": {
+        "input": "select",
+        "name": "State: ",
+        "options": [
+          "New South Wales",
+          "Victoria",
+          "Queensland",
+          "Northern Territory",
+          "Western Australia",
+          "South Australia",
+          "Australian Capital Territory",
+          "Tasmania"
+        ]
+      }
+    }
+  ],
+
+  "transform": [
+    { "filter": "datum.State == State_choice" },
+    { "joinaggregate": [{"op": "max", "field": "Quarter", "as": "maxQuarter"}] },
+    { "filter": "datum.Quarter == datum.maxQuarter" },
+    {
+      "aggregate": [{"op": "sum", "field": "Trips", "as": "Trips_sum"}],
+      "groupby": ["Region","State"]
+    },
+    {
+      "window": [{"op": "rank", "as": "rank_by_trips"}],
+      "sort": [{"field": "Trips_sum", "order": "descending"}]
+    },
+    { "filter": "datum.rank_by_trips <= 10" }
+  ],
+
+  "mark": {"type": "bar", "tooltip": true},
+
+  "encoding": {
+    "y": {"field": "Region", "type": "nominal", "sort": "-x", "title": "Region"},
+    "x": {
+      "field": "Trips_sum",
+      "type": "quantitative",
+      "title": "Trips (latest quarter)",
+      "axis": {"format": ",.0f"}
+    },
+    "color": {
+      "field": "State",
+      "type": "nominal",
+      "legend": null,
+      "scale": {
+        "domain": [
+          "New South Wales",
+          "Victoria",
+          "Queensland",
+          "Northern Territory",
+          "Western Australia",
+          "South Australia",
+          "Australian Capital Territory",
+          "Tasmania"
+        ],
+        "range": [
+          "#E67E00",  
+          "#CC79A7", 
+          "#8A70C9", 
+          "#009E73", 
+          "#0072B2",  
+          "#E69F00",  
+          "#808080",  
+          "#D55E00"   
+        ]
+      }
+    },
+    "tooltip": [
+      {"field":"State","title":"State"},
+      {"field":"Region","title":"Region"},
+      {"field":"Trips_sum","type":"quantitative","title":"Trips (latest quarter)","format":",.0f"}
+    ]
+  },
+
+  "config": {
+    "view": {"stroke": null},
+    "axis": {
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "labelColor": "#00334d",
+      "titleColor": "#00334d"
+    },
+    "legend": {
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "labelColor": "#00334d",
+      "titleColor": "#00334d"
+    }
+  },
+  "description": "Ranked bar chart with a dropdown state selector and consistent dashboard typography; colours match the line chart palette exactly."
+}

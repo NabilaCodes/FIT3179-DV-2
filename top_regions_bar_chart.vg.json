@@ -75,5 +75,6 @@
     "title": {"font": "Segoe UI", "fontSize": 18, "fontWeight": "normal", "color": "#00334d"},
     "axis":  {"labelFont": "Segoe UI", "titleFont": "Segoe UI", "labelFontSize": 12, "titleFontSize": 12, "labelColor": "#00334d", "titleColor": "#00334d"},
     "legend":{"labelFont": "Segoe UI", "titleFont": "Segoe UI", "labelFontSize": 12, "titleFontSize": 12, "labelColor": "#00334d", "titleColor": "#00334d"}
-  }
+  },
+  "description": "AI Declaration: In writing this code, I have taken the help of ChatGPT by providing it with the base code for bar charts from the Studio examples."
 }

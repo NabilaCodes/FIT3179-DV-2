@@ -115,5 +115,6 @@
       "labelColor": "#00334d",
       "titleColor": "#00334d"
     }
-  }
+  },
+  "description": "AI Declaration: In writing this code, I have taken the help of ChatGPT by providing it with the base code for lollipop chart."
 }

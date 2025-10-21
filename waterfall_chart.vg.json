@@ -6,6 +6,13 @@
   },
   "width": 800,
   "height": 450,
+  "title": {
+    "text": "Changes in Tourism GDP across the Years",
+    "font": "Segoe UI",
+    "fontSize": 20,
+    "fontWeight": "normal",
+    "color": "#00334d"
+  },
   "transform": [
     { "calculate": "datum.Year", "as": "label" },
     { "calculate": "toNumber(replace(datum['Tourism ($b)'], ',', ''))", "as": "Value" },
@@ -111,5 +118,6 @@
       "fontWeight": "normal",
       "color": "#00334d"
     }
-  }
+  },
+  "description": "AI Declaration: In writing this code, I have taken the help of ChatGPT by providing it with the base code for waterfall chart from the Studio examples."
 }

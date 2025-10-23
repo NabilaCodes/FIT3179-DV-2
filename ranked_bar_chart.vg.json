@@ -27,9 +27,7 @@
           "Queensland",
           "Northern Territory",
           "Western Australia",
-          "South Australia",
-          "Australian Capital Territory",
-          "Tasmania"
+          "South Australia"
         ]
       }
     }
@@ -113,5 +111,5 @@
       "titleColor": "#00334d"
     }
   },
-  "description": "Ranked bar chart with a dropdown state selector and consistent dashboard typography; colours match the line chart palette exactly."
+  "description": "AI Declaration: In writing this code, I have taken the help of ChatGPT by providing it with the base code for bar charts from the Studio examples."
 }
